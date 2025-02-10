@@ -1,0 +1,11 @@
+{
+  "watch": ["."],
+  "ext": "go",
+  "ignore": ["vendor", "node_modules"],
+  "exec": "clear && go run cmd/api/main.go",
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "delay": "500",
+  "signal": "SIGINT"
+}
