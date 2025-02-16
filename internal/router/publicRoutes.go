@@ -6,7 +6,7 @@ import (
 )
 
 func (r *Router) setupPublicRoutes(router *gin.Engine) {
-	// Public routes
+	// auth routes
 	router.POST("/register", r.authHandler.Register)
 	router.POST("/login", r.authHandler.Login)
 	router.GET("/verify", r.authHandler.VerifyEmail)

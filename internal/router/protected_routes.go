@@ -10,6 +10,7 @@ func (r *Router) setupProtectedRoutes(router *gin.Engine) {
 	protected := router.Group("/api")
 	protected.Use(r.authMiddleware.RequireAuth)
 	{
+		//auth routes
 		protected.GET("/profile", func(c *gin.Context) {
 			c.JSON(200, gin.H{
 				"message":  "Access to protected resource",
@@ -18,5 +19,9 @@ func (r *Router) setupProtectedRoutes(router *gin.Engine) {
 				"username": c.GetString("username"),
 			})
 		})
+
+
+		//products routes
+		protected.GET("/products", r.documentHandler.GetDocument)
 	}
 }

@@ -2,8 +2,8 @@
 package router
 
 import (
-	"serveMovies/internal/handlers"
-	"serveMovies/internal/middleware"
+	"theGoodCompany/internal/handlers"
+	"theGoodCompany/internal/middleware"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,17 +12,20 @@ type Router struct {
 	authHandler         *handlers.AuthHandler
 	passwordResetHandler *handlers.PasswordResetHandler
 	authMiddleware      *middleware.AuthMiddleware
+	documentHandler     *handlers.DocumentHandler
 }
 
 func NewRouter(
 	authHandler *handlers.AuthHandler,
 	passwordResetHandler *handlers.PasswordResetHandler,
 	authMiddleware *middleware.AuthMiddleware,
+	documentHandler *handlers.DocumentHandler,
 ) *Router {
 	return &Router{
 		authHandler:         authHandler,
 		passwordResetHandler: passwordResetHandler,
 		authMiddleware:      authMiddleware,
+		documentHandler:     documentHandler,
 	}
 }
 

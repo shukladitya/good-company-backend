@@ -2,7 +2,8 @@ package handlers
 
 import (
 	"net/http"
-	"serveMovies/internal/services"
+	"theGoodCompany/internal/services"
+
 	"time"
 
 	"github.com/gin-gonic/gin"

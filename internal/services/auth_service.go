@@ -5,7 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"serveMovies/internal/models"
+	"theGoodCompany/internal/models"
+
 	"strconv"
 	"time"
 

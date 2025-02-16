@@ -2,15 +2,19 @@
 package main
 
 import (
+	"context"
 	"log"
 	"os"
-	"serveMovies/internal/handlers"
-	"serveMovies/internal/middleware"
-	"serveMovies/internal/models"
-	"serveMovies/internal/router"
-	"serveMovies/internal/services"
+	"theGoodCompany/internal/handlers"
+	"theGoodCompany/internal/middleware"
+	"theGoodCompany/internal/models"
+	"theGoodCompany/internal/router"
+	"theGoodCompany/internal/services"
+
+	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"github.com/joho/godotenv"
+	"go.mongodb.org/mongo-driver/mongo"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -31,14 +35,26 @@ func main() {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
 
+	// Mongo DB
+	ctx := context.TODO()
+    client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
+    if err != nil {
+        panic(err)
+    }
+    defer client.Disconnect(ctx)
+
+
 	// Auto migrate models
 	db.AutoMigrate(&models.User{})
+	//Mongo DB
+	collection := client.Database("yourDB").Collection("yourCollection")
 	//
 	//
 	// Initialize services
 	authService := &services.AuthService{DB: db}
 	emailService := services.NewEmailService()
 	passwordResetService := &services.PasswordResetService{DB: db}
+	docService := services.NewDocumentService(collection)
 
 	//
 	//
@@ -52,6 +68,9 @@ func main() {
 		PasswordResetService: passwordResetService,
 		EmailService: emailService,
 	}
+	docHandler := &handlers.DocumentHandler{
+		Service: docService,
+	}
 
 	//
 	//
@@ -63,7 +82,7 @@ func main() {
 
 
 	// Initialize and setup router
-	r := router.NewRouter(authHandler, passwordResetHandler, authMiddleware)
+	r := router.NewRouter(authHandler, passwordResetHandler, authMiddleware, docHandler)
 	app := r.Setup()
 
 	app.Run(":8080")

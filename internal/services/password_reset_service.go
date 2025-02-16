@@ -1,7 +1,7 @@
 package services
 
 import (
-	"serveMovies/internal/models"
+	"theGoodCompany/internal/models"
 
 	"gorm.io/gorm"
 )

@@ -3,7 +3,8 @@ package middleware
 
 import (
 	"net/http"
-	"serveMovies/internal/services"
+	"theGoodCompany/internal/services"
+
 	"strings"
 
 	"github.com/gin-gonic/gin"

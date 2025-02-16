@@ -3,8 +3,8 @@ package handlers
 import (
 	"log"
 	"net/http"
-	"serveMovies/internal/models"
-	"serveMovies/internal/services"
+	"theGoodCompany/internal/models"
+	"theGoodCompany/internal/services"
 
 	"github.com/gin-gonic/gin"
 )
